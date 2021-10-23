@@ -1,0 +1,5 @@
+node_modules/
+package-lock.json
+config/Dev.js
+.DS_Store
+resources/static/assets/uploads/*

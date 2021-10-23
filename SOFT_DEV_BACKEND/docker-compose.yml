@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+    server:
+        build:
+            context: ./backend
+            dockerfile: dockerfile
+        image: myapp-server
+        container_name: backend
+        # command: /usr/src/app/node_modules/.bin/nodemon server.js
+        volumes:
+            - ./backend/:/usr/src/app
+            - /usr/src/app/node_modules
+        ports:
+            - '5001:5000'
+        depends_on:
+            - mongo
+        environment:
+            - NODE_ENV=development
+        networks:
+            - app-network
+
+    mongo:
+        image: mongo:3.2.12
+        container_name: mongodb
+        volumes:
+            - D:/docker/data/db:/data/db
+        ports:
+            - '27016:27017'
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    data-volume:
+    node_modules:
+    web-root:
+        driver: local
